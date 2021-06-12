@@ -1,8 +1,8 @@
 CC := g++
-CFLAGS := -std=c++11 -O2
+CFLAGS := -std=c++11 -O2 -Wl,-subsystem,console
 OMP := -fopenmp
-INC := -I include/NFESOLVE/ $(addprefix -I , $(dir $(wildcard include/*/*/)))
-LIBS := -larmadillo
+INC := -I include/NFESOLVE/ $(addprefix -I , $(dir $(wildcard include/*/*/))) 
+LIBS := -larmadillo 
 
 SRCDIR := src
 BUILDDIR_SER := build/ser

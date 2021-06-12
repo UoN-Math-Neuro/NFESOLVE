@@ -14,5 +14,7 @@
 #include "DynamicHistoryBuffer.hpp"
 #include "SparseDelayMatrix.hpp"
 #include "StaticHistoryBuffer.hpp"
+#include "DelayUtils.hpp"
 
 #endif
+

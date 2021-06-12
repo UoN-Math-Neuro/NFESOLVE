@@ -9,7 +9,6 @@ class RungeKuttaSolver : public AbstractODESolver
 protected:
 	void RungeKuttaAlgorithm(const arma::mat& a, const arma::vec& b, const arma::vec& c);
     void AdaptiveRungeKuttaAlgorithm(const arma::mat& a, const arma::vec& b, const arma::vec& c, const arma::vec& bHat, const double ATol, const double RTol);
-
     void SetStepSizeMin(const double stepSizeMin);
     void SetFacMin(const double facMin);
     void SetFac(const double fac);
