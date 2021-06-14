@@ -1,5 +1,6 @@
 build/
 lib/
+Examples_old/
 
 # Prerequisites
 *.d
@@ -33,3 +34,8 @@ lib/
 *.exe
 *.out
 *.app
+
+# Misc
+*.cproject
+*.project
+*.settings*
