@@ -8,7 +8,7 @@ DDE_WC::DDE_WC(const arma::vec& parameters, arma::mat& connectivity, const arma:
 	mParameters = parameters;
 	mpConnectivity = &connectivity;
 	mHistoryVal = constantHistory;
-	//mpDelays = &delays;
+	//mpDelays = &delayMatrix;
 	mColIndex = colIndex;
 	mRowPointer = rowPointer;
 

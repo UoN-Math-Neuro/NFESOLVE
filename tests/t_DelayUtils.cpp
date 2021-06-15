@@ -132,7 +132,6 @@ void testUtils(int testNum)
 		uTest(1, 2) = ZVal(1);
  	}
 
-//	arma::mat uTest = { {uVar(0), ZVal(0)}, {ZVal(0), uVar(1) } };
 	assert(arma::approx_equal(uDelayed, uTest, "absdiff", 1e-3));
 
 	std::cout << "ComputeDelayedVars test complete" << std::endl;

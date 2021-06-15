@@ -27,7 +27,7 @@ void DelaySetup(const double v, const arma::mat& W, const arma::mat& D, arma::ve
 		rowPointer(i) = colCounter;
 		for (arma::uword j = 0; j < N; ++j)
 		{
-			if (W(i,j) == 0.0 || D(i,j) < 1e-9)
+			if (W(i,j) == 0.0)
 			{
 				continue;
 			}
@@ -83,11 +83,11 @@ void ComputeDelayedVars(const arma::vec& uVar, const arma::mat& mpConnectivity, 
 			{
 				for (arma::uword j = 0; j < n; ++j)
 				{
-					if ((mpConnectivity)(i,j) == 0.0)
+					if ( (mpConnectivity)(i,j) == 0.0) 
 					{
 						continue;
 					}
-					if (i == j)
+					else if (i == j)
 					{
 						uDelayed(i,j) = uVar(i);
 					}

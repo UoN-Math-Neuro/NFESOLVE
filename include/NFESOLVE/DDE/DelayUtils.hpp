@@ -1,10 +1,7 @@
 #ifndef DELAYUTILSHEADERDEF
 #define DELAYUTILSHEADERDEF
 
-/*
-#include "SparseDelayMatrix.hpp"
-#include "Debug.hpp"
-*/
+
 #include "../../NFESOLVE.hpp"
 #include <armadillo>
 

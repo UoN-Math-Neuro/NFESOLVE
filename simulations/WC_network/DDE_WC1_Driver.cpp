@@ -46,7 +46,8 @@ int main(int argc, char* argv[])
 	double sigm = 0.25;
 	arma::vec P = {tauE, tauI, PE, cee, cei, cie, C, mu, sigm};
 
-	double v = 4.0; //conductance velocity
+	//double v = 4.0; //conductance velocity
+	double v = 4e3; //for distances in mm
 
 	arma::mat W;
 	W.load(argv[1]);
@@ -56,20 +57,22 @@ int main(int argc, char* argv[])
 	D.load(argv[2]);
 	arma::uword ND = D.n_rows;
 	
+	arma::mat W2 = W % (D > 1e-9); //invalidate connections with no distance value
+	
 	if (N != ND) 
-	{ 
-		printf("Connectivity and delay matrices are different sizes!");
-	}
+		{ 
+			printf("Connectivity and delay matrices are different sizes!/n");
+		}
 
+		arma::umat WD = (W > 0) && (D > 1e-9);
+		arma::uword numDelays = arma::accu(arma::trimatu(WD, 1));
+		arma::uword numDelayValues = 2 * numDelays;
+		arma::umat ZLocations(2, numDelayValues);
+		arma::vec delays(numDelays);
+		arma::uvec colIndex(numDelays);
+		arma::uvec rowPointer(N);
 
-	arma::uword numDelays = arma::accu(arma::trimatu(W,1) >= 1e-9);
-	arma::uword numDelayValues = 2 * numDelays;
-	arma::umat ZLocations(2, numDelayValues);
-	arma::vec delays(numDelays);
-	arma::uvec colIndex(numDelays);
-	arma::uvec rowPointer(N);
-
-	DelaySetup(v, W, D, delays, ZLocations, colIndex, rowPointer);
+	DelaySetup(v, W2, D, delays, ZLocations, colIndex, rowPointer);
 
 	// Set up initial condition
 	arma::vec IC(2 * N, arma::fill::ones);
@@ -78,7 +81,7 @@ int main(int argc, char* argv[])
 	IC.subvec(N,2*N-1) *= 0.1;
 
 	// Set up DDE
-	DDE_WC prob(P, W, IC.subvec(0, N - 1), colIndex, rowPointer);
+	DDE_WC prob(P, W2, IC.subvec(0, N - 1), colIndex, rowPointer);
 
 	// Set up solver
 	DelaySparseRungeKutta32Solver solver(prob, IC, delays, N, ZLocations, initialTime, finalTime, ATol, RTol, outputFileName, saveGap, printGap);
